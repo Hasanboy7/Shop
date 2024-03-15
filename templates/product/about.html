@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static "about/css/stayl.css" %}">
+    <title>Home Page</title>
+</head>
+<body>
+   
+   
+    {% block content %}
+         <!-- asosiy qism -->
+    <div style="height:100vh; margin-bottom: 200px; position: relative;">
+        <video class="home__video" autoplay muted loop src="{% static "about/videos/vecteezy_particles-background-animation_21255314.mp4" %}" style="height:758px;"></video>
+        <section class="home" id="home" style="position: absolute; top: 0;">
+            <div class="section__content">
+                <div class="home__left">
+                    <h1 class="page__title" style="color: aliceblu; width: 500px;">Hi, <br> I'am <span>Mamatkarimov Hasanboy</span> <br> Fullstack Developer</h1>
+                    <div class="btns"><a class="btn" href="#contact">Contact</a></div>
+                    <div class="icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></i></a>
+                    </div>
+                </div>
+                <div class="home__right">
+                    <div class="my__img-box">
+                        <img class="my__img" src="{% static "images/photo_2023-07-28_21-28-10-removebg-preview.png" %}" alt="my image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--About section-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   
+{% endblock  %}
+</body>
+</html>
