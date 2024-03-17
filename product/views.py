@@ -1,33 +1,63 @@
 from typing import Any
+from django.contrib.sessions.models import Session
 from django.shortcuts import render,get_object_or_404
 from .models import Product,Catigory
 from django.views.generic import ListView,DetailView
 from django.http import HttpResponse,JsonResponse
 from .cat import Cart
 # Create your views here.
- 
-def cart_summery(request):
-    return HttpResponse("Hellow word")
 
-def cart_add(request):
+def cart_summery(request):
     cart=Cart(request)
-    print(request.POST)
+    product=cart.get_products()
+    quantity=cart.get_quantity()
+    total=cart.get_total_price()
+    date={
+        'products':product,
+        'quantity':quantity,
+        'total':total
+    }
+    # print(product)
+    # print(quantity)
+    return render(request,'product/cart_summery.html',context=date)
+
+def cartadd(request):
+
+    cart=Cart(request)
+   
     if request.POST.get("action")=='post':
         product_id=int(request.POST.get("product_id"))
-
+        quantity=request.POST.get('product_quantity')
+        # print(quantity)
         product=get_object_or_404(Product,id=product_id)
-
-        cart.add(product=product)
+        cart.add(product=product,quantity=quantity)
+        
         return JsonResponse({"product_id":product_id})
+   
     return HttpResponse("Hellow word")
 
 def cart_update(request):
     return HttpResponse("Hellow word")
 
 def cart_delete(request):
-    return HttpResponse("Hellow word")
+    cart=Cart(request)
+    if request.POST.get("action")=='post':
+        product_id=request.POST.get('product_id')
+        print(request.POST)
+        cart.product_delete(product_id)
+        return JsonResponse({'salom':"salom"})
 
+def cart_update(request):
+    cart=Cart(request)
+   
+    if request.POST.get("action")=='post':
+        product_id=int(request.POST.get("product_id"))
+        quantity=request.POST.get('product_quantity')
+        # print(quantity)
+        product=get_object_or_404(Product,id=product_id)
+        cart.product_update(product=product,quantity=quantity)
 
+    return JsonResponse({"salom":"salom"})
 
 def DetailProduct(request,id):
     # catigory=Catigory.objects.all()
@@ -39,8 +69,6 @@ def DetailProduct(request,id):
         'maxsulotlar':catigory,
         
     }
-    print(maxsulot)
-    print(catigory)
     
     # print(m)
     
